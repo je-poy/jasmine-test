@@ -1,0 +1,22 @@
+{
+  "name": "jasmine-test",
+  "version": "1.0.0",
+  "description": "test jasmine test framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/je-poy/jasmine-test.git"
+  },
+  "author": "jeffcanale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/je-poy/jasmine-test/issues"
+  },
+  "homepage": "https://github.com/je-poy/jasmine-test#readme",
+  "devDependencies": {
+    "jasmine": "^3.3.1"
+  }
+}
