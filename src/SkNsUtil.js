@@ -23,7 +23,7 @@ SKMTI.prototype.util = {
 		};
 	}),
 	toNumber: function(value) {
-		return +number;
+		return +value;
 	},
 	functionExists: function(value) {
 		return typeof value === 'function';
