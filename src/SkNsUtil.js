@@ -4,11 +4,13 @@ function SKMTI() {}
 
 SKMTI.prototype.util = {
 	isEmpty: function(value) {
+		var nullValues = [null, '', undefined, "undefined"];
+		
 		if (value instanceof Array) {
 			return (value.length < 1);
 		}
 
-		return (value === '' || value === null || value === undefined);
+		return SKMTI.array.contains(nullValues, value);
 	},
 	getAbsoluteURL: (function() {
 		var a;
@@ -21,7 +23,7 @@ SKMTI.prototype.util = {
 		};
 	}),
 	toNumber: function(value) {
-		return +value;
+		return +number;
 	},
 	functionExists: function(value) {
 		return typeof value === 'function';
@@ -54,7 +56,7 @@ SKMTI.prototype.object = {
 						}
 						break;
 					case 'function':
-						if(typeof(target[property]) === undefined ||
+						if(typeof(target[property]) === undefined || 
 							(property != "equals" && source[property].toString() != target[property].toString())) {
 							return false;
 						}
@@ -121,7 +123,7 @@ SKMTI.prototype.array = {
 		return source.push.apply(source, forMerge);
 	},
 	contains: function(source, value) {
-		return source.indexOf(value) >= 0;
+		return source.indexOf(value) >= 0; 
 	},
 	sum: function(source) {
 		return source.reduce(function(a, b) { return a + b; });
@@ -164,8 +166,8 @@ SKMTI.prototype.num = {
 
 SKMTI.prototype.url = {
 	getQueryParams: function(urlStr) {
-		if (SKMT.util.isEmpty(urlStr)) urlStr = window.location.search;
-		if (SKMT.util.isEmpty(urlStr)) return {};
+		if (SKMTI.util.isEmpty(urlStr)) urlStr = window.location.search;
+		if (SKMTI.util.isEmpty(urlStr)) return {};
 
 		urlStr = urlStr.substring(1);
 		var urlStrArr = urlStr.split("&");
@@ -175,6 +177,8 @@ SKMTI.prototype.url = {
 			var pair = value.split('=');
 			queryParamObj[pair[0]] = pair[1];
 		});
+
+		return queryParamObj;
 	},
 	getQueryParamValue: function(value, urlStr) {
 		var queryParamObj = this.getQueryParams(urlStr);
@@ -184,6 +188,18 @@ SKMTI.prototype.url = {
 
 String.prototype.capitalize = function(){
     return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+String.prototype.toDecimal = function(place){
+	var value = this, parsedValue = parseFloat(value);
+
+	if(isNaN(parsedValue)) return 0;
+	if(place != undefined) {
+		var parsedFixedValue = parsedValue.toFixed(place);
+		parsedValue = parseFloat(parsedFixedValue);
+    }
+
+	return parsedValue;   
 }
 
 /**
